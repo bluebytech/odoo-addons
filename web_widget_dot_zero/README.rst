@@ -23,7 +23,7 @@ Usage
 
 So an input like *5.7.4* will be parsed into *05.007.0004* value.
 
-*chunks* delimiters are the same used in parsing final value but you can use delimeters in random position.
+*chunks* delimiters are the same used in parsing final value but you can use delimeters in random positions.
 
 So, for example:
 
