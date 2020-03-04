@@ -12,6 +12,15 @@ odoo.define('web_widget_dot_zero', function (require) {
         supportedFieldTypes: ['char'],
         tagName: 'span',
 
+        events: _.extend({}, basic_fields.InputField.prototype.events, {
+            "focusin": "_onFocusIn",
+            'focusout': '_onFocusout',
+        }),
+
+        _onFocusIn: function () {
+            this._render();
+        },
+
         /**
          * @constructor
          */
@@ -78,26 +87,45 @@ odoo.define('web_widget_dot_zero', function (require) {
             }
             this.$input.attr(inputAttrs);
 
-            let s = '';
-            if (inputVal.length > 0) {
-                let si = 0;
-                this.chunks.forEach(function (nz, i, chunks) {
-                    nz = parseInt(nz);
+            // INFO: checks if widget is getting the focus. In this case parse the content otherwise don't do it!
+            if (this.isFocusable()) {
+                let s = '';
+                if (inputVal.length > 0) {
+                    let si = 0;
+                    this.chunks.forEach(function (nz, i, chunks) {
+                        nz = parseInt(nz);
 
-                    // INFO: trims this.fill chars with empty ones.
-                    s = s.concat(inputVal.substr(si, nz).replace(new RegExp('^['+this.fill+']+', 'g'), ''));
+                        // INFO: trims this.fill chars with empty ones.
+                        s = s.concat(inputVal.substr(si, nz).replace(new RegExp('^[' + this.fill + ']+', 'g'), ''));
 
-                    si += nz;
-                    if (i < chunks.length - 1) {
-                        // INFO: concats using delimeters loaded into the init.
-                        s = s.concat(this.seps[i+1]);
-                    }
-                }, this);
+                        si += nz;
+                        if (i < chunks.length - 1) {
+                            // INFO: concats using delimeters loaded into the init.
+                            s = s.concat(this.seps[i + 1]);
+                        }
+                    }, this);
+                }
+                this.$input.val(s);
+            } else {
+                this.$input.val(inputVal);
             }
-            this.$input.val(s);
 
             return this.$input;
         },
+
+        /**
+         * Called on focusout.
+         *
+         * @private
+         */
+        _onFocusout: function () {
+            // INFO: invalidates value to let parse it again.
+            this.lastSetValue = undefined;
+            this.value = '';
+        	this._setValue(this.$input.val());
+        	this.$input.val(this.value);
+        },
+
     });
 
     field_registry.add('dotzero', FieldDotZero);
