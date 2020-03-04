@@ -50,7 +50,7 @@ Known issues / Roadmap
 Bug Tracker
 ===========
 
-You can track bugs or issues on its related `GitHub Issues <https://github.com/bluebytech/web_widget_dot_zero/issues>`_.
+You can track bugs or issues on its related `GitHub Issues <https://github.com/bluebytech/bbt-odoo-addons/issues>`_.
 
 Credits
 =======
