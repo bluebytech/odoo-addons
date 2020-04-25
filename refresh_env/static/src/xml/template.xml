@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="bbt.refresh_env.menu">
+        <li class="o_bbt_systray_item">
+            <a class="o_bbt_refresh_env_action" data-display="static" aria-expanded="false" title="Refresh Env" href="#" role="button">
+                <i class="fa fa-refresh" role="img" aria-label="Refresh Env"/>
+            </a>
+        </li>
+    </t>
+
+</templates>
