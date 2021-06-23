@@ -16,10 +16,8 @@ var RefreshEnvMenu = Widget.extend({
         'click .o_bbt_refresh_env_action': '_onRefreshEnvActionClick',
     },
     _onRefreshEnvActionClick: function (ev) {
-        ev.stopPropagation();
-
         // INFO: spins the fa-refresh icon.
-        $(ev.target).addClass('fa-spin text-warning').off('mouseenter mouseleave');
+        this.$el.off('mouseenter mouseleave').find('i').addClass('fa-spin text-warning');
 
         var self = this;
         self._rpc({

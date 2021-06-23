@@ -6,7 +6,7 @@ class Module(models.Model):
     _inherit = "ir.module.module"
 
     @api.model
-    def reset_env(self, redirect_url=None):
+    def refresh_env(self, redirect_url=None):
 
         self._cr.commit()
         api.Environment.reset()
@@ -15,7 +15,8 @@ class Module(models.Model):
         self._cr.commit()
         env = api.Environment(self._cr, self._uid, self._context)
 
-        config = env['ir.module.module'].next() or {}
+        # INFO: sudoing in case user doing refresh has not permission to access.
+        config = env['ir.module.module'].sudo().next() or {}
         if config.get('type') not in ('ir.actions.act_window_close',):
             if redirect_url:
                 config['url'] = redirect_url

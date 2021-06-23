@@ -16,7 +16,7 @@ module thru the odoo apps menu facilities.
         'views/assets.xml',
     ],
     'qweb': [
-        'static/src/xml/template.xml'
+        'static/src/xml/*.xml'
     ],
     'installable': True,
     'application': False,
